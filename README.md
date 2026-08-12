@@ -56,16 +56,20 @@ Sàn đẩy hàng nghìn update/giây, màn hình 60Hz chỉ vẽ ~60 frame/giâ
 
 Hướng xử lý: Tách "cập nhật orderbook" khỏi "re-render UI": apply mọi update ngay, nhưng chỉ publish snapshot sang React tối đa 1 lần mỗi frame (`requestAnimationFrame`).
 
-**3. Cập nhật local orderbook (chọn cấu trúc dữ liệu):** Sổ có **N** price level, mỗi update đổi **M** level, nhận tổng **K** update.
+**3. Cập nhật local orderbook (chọn cấu trúc dữ liệu):** 
+
+Orderbook có **N** price levels. Mỗi update có thể thay đổi **M** levels. Tổng cộng nhận &&K** updates. Vậy chi phí update tổng cộng là bao nhiêu?
 
 | | update | tạo snapshot cho UI |
 | :--- | :--- | :--- |
 | **HashMap** | `O(K × M)` | `O(N log N)` (phải sort) |
-| **Sorted Tree** | `O(K × M × log N)` | `O(N)` (đã sắp sẵn) |
+| **Sorted Tree** | `O(K × M × log N)` | `O(N)` |
 
 Project này dùng `Map<price, quantity>` để update nhanh, rồi sort khi tạo UI snapshot; sẽ cân nhắc Sorted Tree nếu gặp vấn đề performance.
 
-**4. Orderbook quá lớn để render:** Sổ đầy đủ có thể hàng nghìn dòng.
+**4. Orderbook quá lớn để render:** 
+
+Orderbook lớn có hàng nghìn dòng thì xử lý ra sao?
 
 Hướng xử lý:
 1. **Top-N levels**: chỉ hiển thị 20–50 mức gần market nhất.
