@@ -16,7 +16,7 @@ Orderbook stream dữ liệu thật từ nhiều sàn qua WebSocket.
 
 ## Tổng quan
 
-Dữ liệu order book từ **Binance** và **Coinbase** (kèm một **Test feed** chạy offline) được lấy qua WebSocket, chuẩn hoá về cùng một format, cập nhật vào local order book, rồi mới render.
+Dữ liệu orderbook từ **Binance** và **Coinbase** được lấy qua WebSocket, chuẩn hoá về cùng một format, cập nhật vào local orderbook, rồi mới render.
 
 ![Overview](./docs/overview.png)
 
@@ -41,7 +41,7 @@ BookSnapshot {
 Level { price, quantity }   // lưu trong Map<price, quantity>
 ```
 
-## Các bài toán khi build order book
+## Các bài toán khi build orderbook
 
 **1. Mất một tín hiệu là sai cả sổ.** 
 
